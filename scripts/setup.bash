@@ -39,8 +39,8 @@ function setup() {
             yum install -y curl-devel
             yum install -y expat-devel
             wget https://github.com/git/git/archive/v2.28.0.tar.gz -O /tmp/git-src.tar.gz
-            tar -zxvf /tmp/git-src.tar.gz
-            cd /tmp/git* 
+            tar -zxvf /tmp/git-src.tar.gz -C /tmp
+            cd /tmp/git*
             make prefix=/opt/git all
             make prefix=/opt/git install
             cd -
@@ -147,7 +147,8 @@ function setup() {
             sudo apt-get install -y luajit libluajit-5.1 libncurses5-dev libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev ruby-dev mercurial libperl-dev
         elif [ "$2" == 'tlinux' ]; then
             sudo yum remove -y vim-enhanced vim-common vim-filesystem vim-minimal
-            yum install -y luajit luajit-devel ncurses ncurses-devel ruby ruby-devel mercurial perl perl-devel lua-devel
+            yum install -y sudo
+            sudo yum install -y luajit luajit-devel ncurses ncurses-devel ruby ruby-devel mercurial perl perl-devel lua-devel
         fi
         ./configure --with-features=huge --enable-cscope --enable-rubyinterp --enable-largefile --disable-netbeans --enable-pythoninterp --with-python-config-dir=/usr/lib/python2.7/config --enable-perlinterp --enable-luainterp --with-luajit --enable-fail-if-missing --with-lua-prefix=/usr --enable-gui=gnome2 --enable-cscope --prefix=/usr
     fi
