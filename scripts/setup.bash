@@ -38,12 +38,13 @@ function setup() {
             yum install -y sudo
             yum install -y curl-devel
             yum install -y expat-devel
-            cd /tmp && wget https://github.com/git/git/archive/v2.28.0.tar.gz -O git-src.tar.gz
+            wget https://github.com/git/git/archive/v2.28.0.tar.gz -O /tmp/git-src.tar.gz
             tar -zxvf /tmp/git-src.tar.gz
-            cd /tmp/git*
+            cd /tmp/git* 
             make prefix=/opt/git all
             make prefix=/opt/git install
-            cd /usr/local/bin && ln -s /opt/git/bin/git git
+            cd -
+            cd /usr/local/bin && ln -s /opt/git/bin/git git && cd -
             yum install -y ctags-etags
             yum install -y the_silver_searcher
         fi
@@ -78,6 +79,7 @@ function setup() {
     fi
     if [ "$2" == 'tlinux' ]; then
         pip install pip -U  -i https://mirrors.tencent.com/pypi/simple
+        pip install --upgrade setuptools
         pip config set global.index-url https://mirrors.tencent.com/pypi/simple
     else
         pip install pip -U  -i https://pypi.tuna.tsinghua.edu.cn/simple
