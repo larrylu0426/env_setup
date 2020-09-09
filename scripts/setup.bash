@@ -33,6 +33,19 @@ function setup() {
             sudo apt install -y exuberant-ctags
             sudo apt install -y silversearcher-ag
             sudo apt install -y zsh
+        elif [ "$2" == 'tlinux' ]; then
+            yum remove -y git
+            yum install -y sudo
+            yum install -y curl-devel
+            yum install -y expat-devel
+            cd /tmp && wget https://github.com/git/git/archive/v2.28.0.tar.gz -O git-src.tar.gz
+            tar -zxvf /tmp/git-src.tar.gz
+            cd /tmp/git*
+            make prefix=/opt/git all
+            make prefix=/opt/git install
+            cd /usr/local/bin && ln -s /opt/git/bin/git git
+            yum install -y ctags-etags
+            yum install -y the_silver_searcher
         fi
     elif [ "$1" == 'Darwin' ]; then
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -56,12 +69,20 @@ function setup() {
         if [ "$2" == 'Ubuntu' ]; then
             sudo apt install -y python-dev
             sudo apt install -y python-pip
+        elif [ "$2" == 'tlinux' ]; then
+            sudo yum install -y python-devel
+            sudo yum install -y python-pip
         fi
     elif [ "$1" == 'Darwin' ]; then
-        sudo easy_install -i https://mirrors.aliyun.com/pypi/simple pip
+        sudo easy_install -i https://pypi.tuna.tsinghua.edu.cn/simple
     fi
-    pip install pip -U  -i https://mirrors.aliyun.com/pypi/simple
-    pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+    if [ "$2" == 'tlinux' ]; then
+        pip install pip -U  -i https://mirrors.tencent.com/pypi/simple
+        pip config set global.index-url https://mirrors.tencent.com/pypi/simple
+    else
+        pip install pip -U  -i https://pypi.tuna.tsinghua.edu.cn/simple
+        pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+    fi
 
     # powerline-status
     pip install powerline-status powerline-mem-segment psutil --user
@@ -91,6 +112,8 @@ function setup() {
     if [ "$1" == 'Linux' ]; then
         if [ "$2" == 'Ubuntu' ]; then
             sudo apt install -y tmux
+        elif [ "$2" == 'tlinux' ]; then
+            sudo yum install -y tmux
         fi
     elif [ "$1" == 'Darwin' ]; then
         brew install tmux
@@ -120,6 +143,9 @@ function setup() {
         if [ "$2" == 'Ubuntu' ]; then
             sudo apt-get remove -y vim vim-runtime  vim-tiny vim-common vim-gui-commonsudo apt-get purge vim vim-runtime  vim-tiny vim-common vim-gui-common
             sudo apt-get install -y luajit libluajit-5.1 libncurses5-dev libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev ruby-dev mercurial libperl-dev
+        elif [ "$2" == 'tlinux' ]; then
+            sudo yum remove -y vim-enhanced vim-common vim-filesystem vim-minimal
+            yum install -y luajit luajit-devel ncurses ncurses-devel ruby ruby-devel mercurial perl perl-devel lua-devel
         fi
         ./configure --with-features=huge --enable-cscope --enable-rubyinterp --enable-largefile --disable-netbeans --enable-pythoninterp --with-python-config-dir=/usr/lib/python2.7/config --enable-perlinterp --enable-luainterp --with-luajit --enable-fail-if-missing --with-lua-prefix=/usr --enable-gui=gnome2 --enable-cscope --prefix=/usr
     fi
