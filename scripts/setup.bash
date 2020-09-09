@@ -56,6 +56,7 @@ function setup() {
         brew install ctags
         brew install the_silver_searcher
         brew install wget
+        brew install gnu-sed
     fi
 
     # oh-my-zsh
@@ -75,7 +76,7 @@ function setup() {
             sudo yum install -y python-pip
         fi
     elif [ "$1" == 'Darwin' ]; then
-        sudo easy_install -i https://pypi.tuna.tsinghua.edu.cn/simple
+        sudo easy_install pip
     fi
     if [ "$2" == 'tlinux' ]; then
         pip install pip -U  -i https://mirrors.tencent.com/pypi/simple
