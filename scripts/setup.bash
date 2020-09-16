@@ -64,7 +64,7 @@ function setup() {
     curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
     sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/g'  $HOME/.zshrc
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting
-    echo source $HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh >> $HOME/.zshrc    
+    echo source $HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh >> $HOME/.zshrc
 
     # install python-related items
     if [ "$1" == 'Linux' ]; then
@@ -124,7 +124,7 @@ function setup() {
 
     # fzf
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install
+     ~/.fzf/install --completion --key-bindings --update-rc
 
     # lua
     if [ "$1" == 'Darwin' ]; then
